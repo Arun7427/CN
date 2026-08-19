@@ -1,0 +1,78 @@
+#include <stdio.h>
+#include <string.h>
+
+char data[20][20];
+int n;
+
+int main()
+{
+    int i, j, ch;
+    char tmp[20][30];
+
+    printf("Enter the number of frames: ");
+    scanf("%d", &n);
+    getchar();
+
+    for (i = 0; i < n; i++)
+    {
+        printf("Frame %d: ", i + 1);
+        fgets(data[i], sizeof(data[i]), stdin);
+        data[i][strcspn(data[i], "\n")] = '\0';
+    }
+
+    for (i = 0; i < n; i++)
+    {
+        int len = strlen(data[i]);
+
+        tmp[i][0] = len + '0';
+        strcpy(&tmp[i][1], data[i]);
+    }
+
+    printf("\n\t\tAT THE SENDER:\n");
+    printf("Data as frames:\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("Frame %d: ", i + 1);
+        puts(tmp[i]);
+    }
+
+    printf("Data transmitted: ");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("%s", tmp[i]);
+    }
+
+    printf("\n\n\t\tAT THE RECEIVER:\n");
+    printf("The data received: ");
+
+    for (i = 0; i < n; i++)
+    {
+        ch = tmp[i][0] - '0';
+
+        for (j = 0; j < ch; j++)
+        {
+            data[i][j] = tmp[i][j + 1];
+        }
+
+        data[i][j] = '\0';
+    }
+
+    printf("\nData after removing count characters: ");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("%s", data[i]);
+    }
+
+    printf("\n\nData in frame form:\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("Frame %d: ", i + 1);
+        puts(data[i]);
+    }
+
+    return 0;
+}
